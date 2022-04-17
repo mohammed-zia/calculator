@@ -27,7 +27,6 @@ function genDivs(v){
     display.className = "display";
     display.style.width = "100%";
     display.style.height = "100px";
-    display.textContent = "5318008";
     e.appendChild(display)
     for(var i = 0; i < v; i++){ 
     var row = document.createElement("div"); 
@@ -44,11 +43,13 @@ function genDivs(v){
     }
     for (let i = 0; i < calcButton.length; i++) {
         calcButton[i].addEventListener("click", () => {
-        calcButton[i].className += " squareBlack";
- 
+        calcButton[i].className += " selected";
+        selectedValue = calcButton[i].textContent
+        queryString = populateDisplay(selectedValue, display);
         });
         calcButton[i].id = i;
     }
+
     numOrder = ["7", "8", "9", "+", "4","5","6","-","1","2","3","*","0",".","=","/"]
     for (let i = 15; i >= 0; i--){
         calcButton[i].textContent = numOrder[i]    
@@ -60,5 +61,57 @@ function genDivs(v){
     clearBtn.textContent='Clear';
     clearBtnDiv.appendChild(clearBtn);
     clearBtn.className = "clearButton"
-
 }
+
+function populateDisplay(selectedValue, display) {
+    if(selectedValue == "="){
+        var calcResult = doCalc(display.textContent)
+        display.textContent = String(calcResult)
+    }
+    else if(selectedValue == "+" || selectedValue == "-" || selectedValue == "*" || selectedValue == "/"){
+        display.textContent = display.textContent + " " + selectedValue + " "
+    }
+    else{
+        display.textContent = display.textContent + selectedValue
+    }
+    checked = checkQuery(display.textContent)
+    if(checked == true){
+        storedOp = display.textContent.split(" ").at(-2)
+        console.log(storedOp)
+        var newCalcResult = doCalc(display.textContent)
+        display.textContent = String(newCalcResult) + " " + storedOp+ " "
+    }
+
+    return display.textContent
+    
+    function doCalc(query){
+        queryArr = query.split(" ")
+        for(i=0; i<queryArr.length;i++){
+           if(queryArr[i] == "+"){
+               a = Number(queryArr[i-1])
+               b = Number(queryArr[i+1])
+               return operate(add, a, b)
+           }
+           else if(queryArr[i] == "-"){
+            a = Number(queryArr[i-1])
+            b = Number(queryArr[i+1])
+            return operate(subtract, a, b)
+        }
+            else if(queryArr[i] == "*"){
+                a = Number(queryArr[i-1])
+                b = Number(queryArr[i+1])
+                return operate(multiply, a, b)
+    }
+            else if(queryArr[i] == "/"){
+                a = Number(queryArr[i-1])
+                b = Number(queryArr[i+1])
+                return operate(divide, a, b)
+            }
+        }
+    }
+    function checkQuery(query){
+        console.log(query.split(" ").length > 3)
+        return query.split(" ").length > 3
+        }
+    }
+

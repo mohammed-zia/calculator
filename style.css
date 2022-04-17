@@ -41,9 +41,9 @@ html {
     display: flex;
 }
 
-.squareBlack {
-    background-color: black;
-}
+/* .selected {
+    border: 1px solid palegreen;
+} */
   
 .display {
     display: flex;
