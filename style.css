@@ -2,18 +2,13 @@ body{ min-height:100vh; margin:0; }
 body{ 
     display:flex; 
     flex-direction:column; 
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
 }
 html {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background: linear-gradient(103.22deg, #AE67FA -13.86%, #F49867 99.55%);
     min-height: 100%;
-}
-
-.page{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .container {
@@ -23,8 +18,8 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 1rem;
 }
-
 
 .calcButton{
     border: 2px solid black;
@@ -59,7 +54,7 @@ html {
     justify-content: center;
     align-items: center;
     font-size: 50px;
-    width: 700px;
+    width: 650px;
 }
 
 .calculator {
@@ -90,3 +85,40 @@ input, button {
         outline: none;
         cursor: pointer;
     }
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 50px;
+    margin-top: auto;
+    /* margin-right: 3rem;  */
+    /* margin-left: 3rem; */
+    color: #875773 ;
+    /* text-align: center; */
+    width: 100%;
+}
+
+.footer a{
+    text-decoration: none;
+}
+
+.repoLink{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 340px;
+}
+
+.footerName{
+    display: flex;
+    flex-wrap: wrap;
+    width: 340px;
+    justify-content: center;
+}
+
+.TOP{
+    display: flex;
+    width: 340px;
+    justify-content: center;
+}
