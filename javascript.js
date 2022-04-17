@@ -71,11 +71,18 @@ function genDivs(v){
 var numDot = 0
 function populateDisplay(selectedValue, display) {
     if(selectedValue == "="){
-        var calcResult = doCalc(display.textContent)
-        var calcResultRounded = Math.round(calcResult * 1000) / 1000
-        display.textContent = String(calcResultRounded)
-        if(display.textContent.includes(".")){
-            numDot++
+            if(display.textContent){
+                var calcResult = doCalc(display.textContent)
+                var calcResultRounded = Math.round(calcResult * 1000) / 1000
+                if(Number.isNaN(calcResultRounded)){
+                    display.textContent = display.textContent
+                }
+                else{
+                    display.textContent = String(calcResultRounded)
+                }
+            if(display.textContent.includes(".")){
+                numDot++
+            }
         }
     }
     else if(selectedValue == "+" || selectedValue == "-" || selectedValue == "*" || selectedValue == "/"){
@@ -103,8 +110,9 @@ function populateDisplay(selectedValue, display) {
         checkedArr.pop()
         console.log(checkedArr)
 
-        var newCalcResult = doCalc(display.textContent)
-        var newCalcResultRounded = Math.round(newCalcResult * 1000) / 1000
+        var newCalcResult = doCalc(display.textContent);
+        var newCalcResultRounded = Math.round(newCalcResult * 1000) / 1000;
+        console.log("new",newCalcResultRounded)
         display.textContent = String(newCalcResultRounded) + " " + storedOp+ " "
     }
 
@@ -126,12 +134,12 @@ function populateDisplay(selectedValue, display) {
                 a = Number(queryArr[i-1])
                 b = Number(queryArr[i+1])
                 return operate(subtract, a, b)
-        }
+            }
             else if(queryArr[i] == "*"){
                 a = Number(queryArr[i-1])
                 b = Number(queryArr[i+1])
                 return operate(multiply, a, b)
-    }
+            }
             else if(queryArr[i] == "/"){
                 a = Number(queryArr[i-1])
                 b = Number(queryArr[i+1])
@@ -144,5 +152,5 @@ function populateDisplay(selectedValue, display) {
         return query.split(" ").length > 3
         }
 
-    }
+}
 
