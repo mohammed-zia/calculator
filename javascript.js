@@ -17,6 +17,7 @@ const divide = (a,b) => {
     return a/b;
 }
 
+
 const operate = (op, a, b) => {
     return op(a,b);
 }
@@ -61,41 +62,70 @@ function genDivs(v){
     clearBtn.textContent='Clear';
     clearBtnDiv.appendChild(clearBtn);
     clearBtn.className = "clearButton"
+    clearBtn.addEventListener('click', () => {
+        display.textContent = ""
+        numDot = 0    
+    })
 }
 
+var numDot = 0
 function populateDisplay(selectedValue, display) {
     if(selectedValue == "="){
         var calcResult = doCalc(display.textContent)
-        display.textContent = String(calcResult)
+        var calcResultRounded = Math.round(calcResult * 1000) / 1000
+        display.textContent = String(calcResultRounded)
+        if(display.textContent.includes(".")){
+            numDot++
+        }
     }
     else if(selectedValue == "+" || selectedValue == "-" || selectedValue == "*" || selectedValue == "/"){
         display.textContent = display.textContent + " " + selectedValue + " "
+        numDot = 0
+    }
+    else if(selectedValue == "."){
+        if(numDot==0){
+            display.textContent = display.textContent + selectedValue
+            numDot++
+            console.log(numDot)
+        }
+        else{
+            display.textContent = display.textContent + ""
+        }
     }
     else{
         display.textContent = display.textContent + selectedValue
     }
     checked = checkQuery(display.textContent)
     if(checked == true){
-        storedOp = display.textContent.split(" ").at(-2)
+        checkedArr = display.textContent.split(" ")
+        storedOp = checkedArr.at(-2)
         console.log(storedOp)
+        checkedArr.pop()
+        console.log(checkedArr)
+
         var newCalcResult = doCalc(display.textContent)
-        display.textContent = String(newCalcResult) + " " + storedOp+ " "
+        var newCalcResultRounded = Math.round(newCalcResult * 1000) / 1000
+        display.textContent = String(newCalcResultRounded) + " " + storedOp+ " "
     }
 
     return display.textContent
     
     function doCalc(query){
         queryArr = query.split(" ")
-        for(i=0; i<queryArr.length;i++){
-           if(queryArr[i] == "+"){
-               a = Number(queryArr[i-1])
-               b = Number(queryArr[i+1])
-               return operate(add, a, b)
+        for(i=0; i<3 ;i++){
+            if(queryArr.at(2) === ""){
+                a = queryArr[0]
+                return a 
+            } 
+           else if(queryArr[i] == "+"){
+                a = Number(queryArr[i-1])
+                b = Number(queryArr[i+1])
+                return operate(add, a, b)
            }
            else if(queryArr[i] == "-"){
-            a = Number(queryArr[i-1])
-            b = Number(queryArr[i+1])
-            return operate(subtract, a, b)
+                a = Number(queryArr[i-1])
+                b = Number(queryArr[i+1])
+                return operate(subtract, a, b)
         }
             else if(queryArr[i] == "*"){
                 a = Number(queryArr[i-1])
@@ -110,8 +140,9 @@ function populateDisplay(selectedValue, display) {
         }
     }
     function checkQuery(query){
-        console.log(query.split(" ").length > 3)
+        // console.log(query.split(" "))
         return query.split(" ").length > 3
         }
+
     }
 
