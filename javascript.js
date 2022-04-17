@@ -34,7 +34,7 @@ function genDivs(v){
     const e = document.querySelector('.calculator');
     var display = document.createElement('div');
     display.className = "display";
-    display.style.width = "700px";
+    display.style.width = "650px";
     display.style.height = "100px";
     e.appendChild(display)
     for(var i = 0; i < v; i++){ 
@@ -44,7 +44,7 @@ function genDivs(v){
         var cell = document.createElement("div"); 
         cell.className = "calcButton";
         cell.style.width = "100%";
-        let height = 700 / parseInt(v);
+        let height = 650 / parseInt(v);
         cell.style.height = `${height}px`;
         row.appendChild(cell); 
     } 
