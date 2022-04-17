@@ -31,10 +31,10 @@ const operate = (op, a, b) => {
 
 // Generate interactive calculator
 function genDivs(v){
-    const e = document.querySelector('.calculator'); 
+    const e = document.querySelector('.calculator');
     var display = document.createElement('div');
     display.className = "display";
-    display.style.width = "100%";
+    display.style.width = "700px";
     display.style.height = "100px";
     e.appendChild(display)
     for(var i = 0; i < v; i++){ 
@@ -52,9 +52,9 @@ function genDivs(v){
     }
     for (let i = 0; i < calcButton.length; i++) {
         calcButton[i].addEventListener("click", () => {
-        calcButton[i].className += " selected";
-        selectedValue = calcButton[i].textContent;
-        queryString = populateDisplay(selectedValue, display);
+            calcButton[i].className += " selected";
+            selectedValue = calcButton[i].textContent;
+            queryString = populateDisplay(selectedValue, display);
         });
         calcButton[i].id = i;
     }
@@ -62,6 +62,9 @@ function genDivs(v){
     numOrder = ["7", "8", "9", "+", "4","5","6","-","1","2","3","*","0",".","=","/"];
     for (let i = 15; i >= 0; i--){
         calcButton[i].textContent = numOrder[i];
+        if(calcButton[i].textContent == "+" || calcButton[i].textContent == "-" || calcButton[i].textContent == "*" || calcButton[i].textContent == "/"){
+            calcButton[i].id = "op"
+        }
     }
     const clearBtnDiv = document.createElement('div');
     e.appendChild(clearBtnDiv);
